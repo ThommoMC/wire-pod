@@ -16,6 +16,7 @@ import (
 	"github.com/kercre123/wire-pod/chipper/pkg/scripting"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/wirepod/localization"
+	"github.com/kercre123/wire-pod/chipper/pkg/wirepod/pluginmanager"
 	processreqs "github.com/kercre123/wire-pod/chipper/pkg/wirepod/preqs"
 	botsetup "github.com/kercre123/wire-pod/chipper/pkg/wirepod/setup"
 )
@@ -399,6 +400,7 @@ func StartWebServer() {
 	botsetup.RegisterBLEAPI()
 	http.HandleFunc("/api/", apiHandler)
 	http.HandleFunc("/session-certs/", certHandler)
+	http.HandleFunc("/plugin-api/", pluginmanager.PluginapiHandler)
 	var webRoot http.Handler
 	if runtime.GOOS == "darwin" && vars.Packaged {
 		appPath, _ := os.Executable()
